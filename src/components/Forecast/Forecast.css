@@ -1,0 +1,10 @@
+.weather {
+	background-image: url("../../images/air-ballon.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-position-y: 95%;
+}
+.weather-general {
+	background: rgba(221, 217, 217, 0.122);
+}
