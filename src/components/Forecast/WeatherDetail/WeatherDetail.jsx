@@ -35,7 +35,7 @@ function WeatherDetail({ data }) {
 
 			<div className={`${style} w-full flex justify-between px-4`}>
 				<span className=''>Wind speed: </span>
-				<span>{data.wind.speed * KM_PER_HOUR_RATE}km/h</span>
+				<span>{(data.wind.speed * KM_PER_HOUR_RATE).toFixed(1)}km/h</span>
 			</div>
 
 			<div className={`${style} w-full flex justify-between px-4`}>

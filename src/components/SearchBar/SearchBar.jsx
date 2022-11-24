@@ -4,9 +4,28 @@ function SearchBar({ setSearchCity }) {
 	let inputRef = useRef()
 	const handleClick = e => {
 		e.preventDefault()
-		console.log(inputRef.current.value)
+
+		let cityName = inputRef.current.value
+		let arrayOfWords = cityName.split(" ")
+		let value = ""
+
+		for (let i = 0; i < arrayOfWords.length; i++) {
+			value += arrayOfWords[i]
+			if (value.indexOf(" ") === -1) {
+				value += " "
+			} else {
+			}
+		}
+
 		// console.log(setSearchCity)
-		setSearchCity(inputRef.current.value)
+		console.log(value)
+		setSearchCity(value)
+		inputRef.current.value = ""
+	}
+	const handleKeyDown = e => {
+		if (e.key === "Enter") {
+			handleClick(e)
+		}
 	}
 	return (
 		<div className='w-fit rounded-xl flex items-center bg-white px-3 py-2'>
@@ -15,6 +34,8 @@ function SearchBar({ setSearchCity }) {
 				ref={inputRef}
 				className='search-bar placeholder:italic focus:outline-none'
 				placeholder='Enter city name...'
+				onKeyDown={handleKeyDown}
+
 			/>
 			<button className='ml-2' onClick={handleClick}>
 				<svg viewBox='0 0 1024 1024' className='w-6 h-6'>

@@ -6,23 +6,37 @@ function Forecast() {
 	const [data, setData] = useState({})
 
 	const [city, setCity] = useState("Toronto")
-	// const [cityError, setCityError] = useState("")
+	const [cityError, setCityError] = useState("")
 	const API_KEY = "5c6544b20592f1299912bf56d6212d00"
 
 	useEffect(() => {
 		const controller = new AbortController()
 		const signal = controller.signal
 		const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+		console.log(URL)
 		fetch(URL, { signal: signal })
 			.then(result => result.json())
 			.then(data => {
 				const date = new Date()
 				data["date"] = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()}`
-				setData(data)
+				console.log(data)
+				if (data.cod === "404") {
+					setCityError("Not found")
+					console.log(city)
+				} else {
+
+					setData(data)
+					setCityError("")
+				}
+
 				// console.log(data)
 			})
 			.catch(err => {
-				console.log(err)
+				if (err.message === "The user aborted a request.") {
+					console.log(err.message)
+				} else {
+					setCityError("Not found")
+				}
 			})
 		return () => {
 			// setData({})
@@ -47,7 +61,7 @@ function Forecast() {
 						<div className='name text-white text-lg cursor-pointer'>ndh.weather</div>
 
 						<SearchBar setSearchCity={setCity} />
-						{/* <p className='italic text-red-800'>{cityError}</p> */}
+						<span className='italic text-red-800'>{cityError}</span>
 
 						<div className='weather-general-information basis-4/6 flex'>
 							<div className='basis-3/5 flex items-center'>
