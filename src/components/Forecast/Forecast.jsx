@@ -24,7 +24,6 @@ function Forecast() {
 					setCityError("Not found")
 					console.log(city)
 				} else {
-
 					setData(data)
 					setCityError("")
 				}
